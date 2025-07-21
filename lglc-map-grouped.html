@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>LGLC Events Map (Grouped by Place)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="lglc-map.css" />
+</head>
+<body>
+    <div id="map"></div>
+    <script src="leaflet/leaflet.js"></script>
+    <script>
+        // Initialize the map centered on Canada
+        var map = L.map('map').setView([56.1304, -106.3468], 4);
+
+        // Default OpenStreetMap baselayer
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors',
+            maxZoom: 18
+        }).addTo(map);
+
+        // Load the GeoJSON file
+        fetch('lglc-test1.geojson')
+            .then(response => response.json())
+            .then(data => {
+                // Grouper les événements par coordonnées (clé = long,lat)
+                const grouped = {};
+                data.features.forEach(f => {
+                    const coords = f.geometry.coordinates.join(',');
+                    if (!grouped[coords]) grouped[coords] = [];
+                    grouped[coords].push(f);
+                });
+                // Créer un marker par lieu
+                Object.keys(grouped).forEach(coordKey => {
+                    const features = grouped[coordKey];
+                    const coords = coordKey.split(',').map(Number);
+                    // Popup : liste tous les événements de ce lieu
+                    let popupContent = `<div class='popup-place'>${features[0].properties.place || "(no place)"}</div>`;
+                    features.forEach(ev => {
+                        popupContent += `<div class='popup-event'>`;
+                        popupContent += `<div class='popup-date'>${ev.properties.date || ""}</div>`;
+                        popupContent += `<div class='popup-title'>${ev.properties.event || "(no event text)"}</div>`;
+                        popupContent += `</div>`;
+                    });
+                    L.circleMarker([coords[1], coords[0]], {
+                        radius: 6,
+                        fillColor: "#e74c3c",
+                        color: "#c0392b",
+                        weight: 1,
+                        opacity: 1,
+                        fillOpacity: 0.7
+                    })
+                    .bindPopup(popupContent)
+                    .addTo(map);
+                });
+            })
+            .catch(err => {
+                alert("Error loading GeoJSON: " + err);
+            });
+    </script>
+</body>
+</html> 
