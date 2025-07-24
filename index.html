@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>LGLC Events Map (Grouped by Place)</title>
+    <title>LGLC Events Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <link rel="stylesheet" href="leaflet.css" />
     <link rel="stylesheet" href="lglc-map.css" />
 </head>
 <body>
     <div id="map"></div>
-    <script src="leaflet/leaflet.js"></script>
+    <script src="leaflet.js"></script>
     <script>
         // Initialize the map centered on Canada
         var map = L.map('map').setView([56.1304, -106.3468], 4);
@@ -21,7 +21,7 @@
         }).addTo(map);
 
         // Load the GeoJSON file
-        fetch('lglc-test1.geojson')
+        fetch('lglc-test2.geojson')
             .then(response => response.json())
             .then(data => {
                 // Grouper les événements par coordonnées (clé = long,lat)
@@ -45,8 +45,8 @@
                     });
                     L.circleMarker([coords[1], coords[0]], {
                         radius: 6,
-                        fillColor: "#e74c3c",
-                        color: "#c0392b",
+                        fillColor: "#8e44ad", // violet
+                        color: "#8e44ad",     // violet
                         weight: 1,
                         opacity: 1,
                         fillOpacity: 0.7
