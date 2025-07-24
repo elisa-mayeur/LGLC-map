@@ -21,7 +21,7 @@
         }).addTo(map);
 
         // Load the GeoJSON file
-        fetch('lglc-test2.geojson')
+        fetch('lglc-map.geojson')
             .then(response => response.json())
             .then(data => {
                 // Grouper les événements par coordonnées (clé = long,lat)
