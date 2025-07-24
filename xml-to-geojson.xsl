@@ -8,7 +8,7 @@
     <xsl:output method="text" encoding="UTF-8"/>
     
     <!-- Chargement du fichier d'autorité des lieux -->
-    <xsl:variable name="places-doc" select="document('local-places.xml')"/>
+    <xsl:variable name="places-doc" select="document('places-map.xml')"/>
 
     <!-- Template principal : racine du document -->
     <xsl:template match="/">
