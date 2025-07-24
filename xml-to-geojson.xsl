@@ -27,15 +27,9 @@
 
     <!-- Template pour chaque événement -->
     <xsl:template match="tei:event">
-        <!--
-            Si un seul placeName dans l'événement :
-            on crée un feature pour ce lieu
-        -->
+        <!-- Si un seul placeName dans l'événement : on crée un feature pour ce lieu -->
         <xsl:apply-templates select=".//tei:placeName[@corresp][last()=1]"/>
-        <!--
-            Si plusieurs placeName dans l'événement :
-            on crée un feature pour chaque lieu sauf le premier
-        -->
+        <!-- Si plusieurs placeName dans l'événement : on crée un feature pour chaque lieu sauf le premier -->
         <xsl:apply-templates select=".//tei:placeName[@corresp][position() &gt; 1 and last() &gt; 1]"/>
     </xsl:template>
 
@@ -51,10 +45,12 @@
             <xsl:variable name="geo-text" select="normalize-space($place//tei:geo)"/>
             <xsl:variable name="lat" select="substring-before($geo-text, ' ')"/>
             <xsl:variable name="long" select="normalize-space(substring-after($geo-text, ' '))"/>
-            <!-- Ajouter une virgule entre les features sauf pour le premier -->
+
+            <!-- Ajouter une virgule entre les features sauf pour le premier (pour éviter la dernière virgule) -->
             <xsl:if test="position() > 1 or preceding::tei:placeName[@corresp]">
                 <xsl:text>,</xsl:text>
             </xsl:if>
+
             <!-- Générer le bloc GeoJSON pour ce lieu -->
             <xsl:text>
         {
@@ -62,7 +58,7 @@
         "geometry": {
         "type": "Point",
         "coordinates": [</xsl:text>
-            <!-- Longitude (négatif pour l'ouest ou positif pour l'est) -->
+            <!-- Longitude -->
             <xsl:value-of select="$long"/>
             <xsl:text>, </xsl:text>
             <!-- Latitude -->
@@ -71,7 +67,7 @@
         },
         "properties": {
         "date": "</xsl:text>
-            <!-- Extraction de la date (plusieurs formats possibles) -->
+            <!-- Extraction de la date (plusieurs formats possibles selon l'attribut de la balise date) -->
             <xsl:choose>
                 <xsl:when test="ancestor::tei:event//tei:date[1]/@when">
                     <xsl:value-of select="ancestor::tei:event//tei:date[1]/@when"/>
@@ -88,18 +84,19 @@
             </xsl:choose>
             <xsl:text>",
         "place": "</xsl:text>
-            <!-- Nom du lieu officiel depuis le fichier d'autorité -->
+            <!-- Nom du lieu dans le fichier d'autorité -->
             <xsl:value-of select="normalize-space($place//tei:placeName)"/>
             <xsl:text>",
+            <!-- Type du lieu (ne sera pas affiché mais permettra de différencier les types de lieux par couleur) -->
         "place-type": "</xsl:text>
             <xsl:value-of select="$place/@type"/>
             <xsl:text>",
-        <!-- event-id : identifiant xml:id de l'événement parent -->
+        <!-- Identifiant xml:id de l'événement parent -->
         "event-id": "</xsl:text>
             <xsl:value-of select="ancestor::tei:event/@xml:id"/>
             <xsl:text>",
         "event": "</xsl:text>
-            <!-- Texte de l'événement (guillemets supprimés) -->
+            <!-- Texte de l'événement (guillemets supprimés pour éviter les erreurs de parsing) -->
             <xsl:value-of select="normalize-space(translate(ancestor::tei:event//tei:p, '&quot;', ''))"/>
             <xsl:text>"
         }
