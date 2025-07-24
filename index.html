@@ -43,10 +43,13 @@
                         popupContent += `<div class='popup-title'>${ev.properties.event || "(no event text)"}</div>`;
                         popupContent += `</div>`;
                     });
+                    // Couleur selon le type de lieu
+                    var placeType = features[0].properties['place-type'];
+                    var color = (placeType === 'city') ? '#e67e22' : '#8e44ad';
                     L.circleMarker([coords[1], coords[0]], {
                         radius: 6,
-                        fillColor: "#8e44ad", // violet
-                        color: "#8e44ad",     // violet
+                        fillColor: color,
+                        color: color,
                         weight: 1,
                         opacity: 1,
                         fillOpacity: 0.7
