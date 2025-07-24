@@ -43,8 +43,8 @@
                     let popupContent = `<div class='popup-place ${placeClass}'>${features[0].properties.place || "(no place)"}</div>`;
                     features.forEach(ev => {
                         popupContent += `<div class='popup-event'>`;
-                        popupContent += `<div class='event-id'>ID: ${ev.properties['event-id'] || ""}</div>`;
                         popupContent += `<div class='popup-date'>${ev.properties.date || ""}</div>`;
+                        popupContent += `<div class='event-id'>ID: ${ev.properties['event-id'] || ""}</div>`;
                         popupContent += `<div class='popup-title'>${ev.properties.event || "(no event text)"}</div>`;
                         popupContent += `</div>`;
                     });
