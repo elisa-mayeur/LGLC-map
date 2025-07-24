@@ -35,8 +35,12 @@
                 Object.keys(grouped).forEach(coordKey => {
                     const features = grouped[coordKey];
                     const coords = coordKey.split(',').map(Number);
+                    // Couleur et classe selon le type de lieu
+                    var placeType = features[0].properties['place-type'];
+                    var placeClass = placeType === 'city' ? 'place-city' : 'place-other';
+                    var color = (placeType === 'city') ? '#e67e22' : '#8e44ad';
                     // Popup : liste tous les événements de ce lieu
-                    let popupContent = `<div class='popup-place'>${features[0].properties.place || "(no place)"}</div>`;
+                    let popupContent = `<div class='popup-place ${placeClass}'>${features[0].properties.place || "(no place)"}</div>`;
                     features.forEach(ev => {
                         popupContent += `<div class='popup-event'>`;
                         popupContent += `<div class='event-id'>ID: ${ev.properties['event-id'] || ""}</div>`;
@@ -44,9 +48,6 @@
                         popupContent += `<div class='popup-title'>${ev.properties.event || "(no event text)"}</div>`;
                         popupContent += `</div>`;
                     });
-                    // Couleur selon le type de lieu
-                    var placeType = features[0].properties['place-type'];
-                    var color = (placeType === 'city') ? '#e67e22' : '#8e44ad';
                     L.circleMarker([coords[1], coords[0]], {
                         radius: 6,
                         fillColor: color,
