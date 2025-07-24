@@ -27,10 +27,31 @@
 
     <!-- Template pour chaque événement -->
     <xsl:template match="tei:event">
-        <!-- Si un seul placeName dans l'événement : on crée un feature pour ce lieu -->
-        <xsl:apply-templates select=".//tei:placeName[@corresp][last()=1]"/>
-        <!-- Si plusieurs placeName dans l'événement : on crée un feature pour chaque lieu sauf le premier -->
-        <xsl:apply-templates select=".//tei:placeName[@corresp][position() &gt; 1 and last() &gt; 1]"/>
+        <!-- Récupérer tous les placeName avec @corresp -->
+        <xsl:variable name="all-places" select=".//tei:placeName[@corresp]"/>
+        <!-- Récupérer l'ID du premier placeName -->
+        <xsl:variable name="first-place-id" select="substring-after($all-places[1]/@corresp, '#')"/>
+        <!-- Chercher si un des autres placeName pointe vers un lieu dont une addrLine corresp=#ID_DU_PREMIER_PLACE_NAME -->
+        <xsl:variable name="places-ref-to-first">
+            <xsl:for-each select="$all-places[position() &gt; 1]">
+                <xsl:variable name="this-id" select="substring-after(@corresp, '#')"/>
+                <xsl:variable name="lieu" select="$places-doc//tei:place[@xml:id = $this-id]"/>
+                <xsl:if test="$lieu//tei:addrLine[@corresp = concat('#', $first-place-id)]">
+                    <xsl:text>1</xsl:text>
+                </xsl:if>
+            </xsl:for-each>
+        </xsl:variable>
+        <xsl:choose>
+            <!-- Cas où il existe au moins un autre lieu qui référence le premier -->
+            <xsl:when test="string-length($places-ref-to-first) &gt; 0">
+                <!-- On crée un feature pour tous les placeName sauf le premier -->
+                <xsl:apply-templates select="$all-places[position() &gt; 1]"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <!-- On crée un feature pour tous les placeName (y compris le premier) -->
+                <xsl:apply-templates select="$all-places"/>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- Template pour chaque placeName sélectionné -->
