@@ -1,9 +1,33 @@
+html, body, #map {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.leaflet-popup-content {
+    font-size: 1em;
+    line-height: 1.4;
+    max-height: 300px;
+    overflow-y: auto; /* Add this to enable scrolling */
+}
+.popup-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #2c3e50;
+}
+.popup-date {
+    color: #888;
+    font-size: 0.95em;
+}
 .popup-place {
     color: #8e44ad;
     font-weight: bold;
     margin-bottom: 0.5em;
 }
-
+.popup-event {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5em;
+}
 .event-id {
     color: #7c6bb0;
     font-size: 0.95em;
@@ -12,4 +36,4 @@
     margin-top: -0.2em;
     letter-spacing: 0.5px;
     display: block;
-} 
+}
