@@ -22,11 +22,13 @@ html, body, #map {
 .popup-place.place-city {
     color: #e67e22;
     font-weight: bold;
+    font-size: 1.2em;
     margin-bottom: 0.5em;
 }
 .popup-place.place-other {
     color: #8e44ad;
     font-weight: bold;
+    font-size: 1.2em;
     margin-bottom: 0.5em;
 }
 .popup-event {
