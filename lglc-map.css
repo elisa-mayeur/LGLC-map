@@ -7,7 +7,7 @@ html, body, #map {
     font-size: 1em;
     line-height: 1.4;
     max-height: 300px;
-    overflow-y: auto; /* Add this to enable scrolling */
+    overflow-y: auto;
 }
 .popup-title {
     font-weight: normal;
