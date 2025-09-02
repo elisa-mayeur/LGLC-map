@@ -8562,9 +8562,9 @@
                             <!-- RS http://www.csc-scc.gc.ca/institutions/001002-3012-eng.shtml-->
                             <placeName>Warkworth Institution</placeName>
                             <location from="1967-09">
-                                <geo>44.21264 77.80707</geo>
+                                <geo>44.2180 -77.8069</geo>
                                 <address>
-                                    <addrLine>15710 Northumberland County Rd</addrLine>
+                                    <addrLine>15847 Northumberland County Rd</addrLine>
                                     <addrLine corresp="#CF"/>
                                 </address>
                             </location>
@@ -11680,7 +11680,7 @@
                             <!-- CM  -->
                             <placeName>Leuty Avenue</placeName>
                             <location>
-                                <geo>3.6689 -79.2957</geo>
+                                <geo>43.6689 -79.2957</geo>
                                 <address>
                                     <addrLine>Leuty Avenue</addrLine>
                                     <addrLine corresp="#TOR"/>
@@ -12905,7 +12905,7 @@
                             <!-- CL n81.74 http://www.canadainternational.gc.ca/italy-italie/offices-bureaux/embassy-ambassade.aspx?lang=eng -->
                             <placeName>Canadian Embassy in Rome</placeName>
                             <location notAfter="1981-02">
-                                <geo>41.9223 -12.5012</geo>
+                                <geo>41.9223 12.5012</geo>
                                 <address>
                                     <addrLine>Via Salaria, 243</addrLine>
                                     <addrLine corresp="#ROM"/>
