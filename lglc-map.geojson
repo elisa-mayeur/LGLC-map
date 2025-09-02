@@ -21222,7 +21222,7 @@
         "type": "Feature",
         "geometry": {
         "type": "Point",
-        "coordinates": [77.80707, 44.21264]
+        "coordinates": [-77.8069, 44.2180] 
         },
         "properties": {
         "date": "1976-08",
@@ -47462,7 +47462,7 @@
         "type": "Feature",
         "geometry": {
         "type": "Point",
-        "coordinates": [-79.2957, 3.6689]
+        "coordinates": [-79.2957, 43.6689]
         },
         "properties": {
         "date": "1980-04-11",
@@ -53110,7 +53110,7 @@
         "type": "Feature",
         "geometry": {
         "type": "Point",
-        "coordinates": [-12.5012, 41.9223]
+        "coordinates": [12.5012, 41.9223]
         },
         "properties": {
         "date": "1981-02-24",
