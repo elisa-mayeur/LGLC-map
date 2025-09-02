@@ -111,10 +111,10 @@ USAGE
 
 To visualize the map:
 
-1. **Direct online access (recommended)**:
+1. Direct online access (recommended):
    Access directly at: https://elisa-mayeur.github.io/LGLC-map/
 
-2. **Local visualization**:
+2. Local visualization:
    - Download all repository files
    - Open a terminal in the folder containing the files
    - Launch a local server with the command: `python3 -m http.server 8000`
